@@ -6,8 +6,8 @@ RUN apt-get update -y
 RUN apt-get upgrade -y
 RUN apt-get install -y debconf-utils
 
-COPY install_mysql.sh /root/install_mysql.sh 
-RUN chmod +x /root/install_mysql.sh
-RUN /root/install_mysql.sh
+COPY setup-mysql.sh /root/setup-mysql.sh
+RUN chmod +x /root/setup-mysql.sh
+RUN /root/setup-mysql.sh
 
 EXPOSE 3306
