@@ -4,9 +4,9 @@ RUN export DEBIAN_FRONTEND="noninteractive"
 
 RUN apt-get update -y
 RUN apt-get upgrade -y
-
-COPY setup-mysql.sh /root/setup-mysql.sh
-RUN chmod +x /root/setup-mysql.sh
-RUN /root/setup-mysql.sh
+RUN apt-get install -y debconf-utils
+RUN debconf-set-selections <<< "mysql-server mysql-server/root_password password rootpw"
+RUN debconf-set-selections <<< "mysql-server mysql-server/root_password_again password rootpw"
+RUN apt-get install -y mysql-server
 
 EXPOSE 3306
