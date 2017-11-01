@@ -1,10 +1,5 @@
 #!/bin/bash
-VAR=$(expect -c '
-spawn apt-get -y install mysql-server
-expect "New password for the MySQL \"root\" user:"
-send "PasswordHere\r"
-expect "Repeat password for the MySQL \"root\" user:"
-send "PasswordHere\r"
-expect eof
-')
-echo "$VAR"
+debconf-set-selections <<< 'mysql-server mysql-server/root_password password MySuperPassword'
+debconf-set-selections <<< 'mysql-server mysql-server/root_password_again password MySuperPassword'
+apt-get update
+apt-get install -y mysql-server
